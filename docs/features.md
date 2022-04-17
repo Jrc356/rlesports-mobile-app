@@ -1,7 +1,10 @@
 # Features
 ## News
 I want a news section of the app. This should be the landing page of the app. Instead of creating content for it, scrape 
-the internet for the plethora of news out there.
+the internet for the plethora of news out there. Need to filter out spoilers when possible
+
+## Favorites
+I want to be able to favorite teams and players. My news should then be tailored around these favorites
 
 ## Search
 I want to be able to search for things in app. This should be available anywhere in the app. It should search for players
