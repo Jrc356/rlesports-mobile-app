@@ -14,10 +14,10 @@ or teams.
 ### List View
 I want to be able to see a list of players that play in the RLCS. I should be able to see the following information
 about each player in the list at quick glance:
+- picture
 - in game name
 - team
 - rank
-- position
 
 ### Profile View
 I want to be able to see individual players and the following information about them:
@@ -32,6 +32,7 @@ I want to be able to see individual players and the following information about 
   - rank over time
   - rlcs games played
   - ranked games played
+- news
 
 ## Teams
 ### List View
