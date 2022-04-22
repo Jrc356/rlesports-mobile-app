@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rlesports_app/pages/home.dart';
 import 'package:rlesports_app/pages/news.dart';
+import 'package:rlesports_app/pages/player.dart';
 import 'package:rlesports_app/theme/sizes.dart';
 import 'package:rlesports_app/widgets/app_bar.dart';
 import 'package:rlesports_app/theme/colors.dart';
@@ -60,7 +61,7 @@ class _MainPageState extends State<MainPage> {
       label: "Players",
       icon: Icon(Icons.person_outlined),
       activeIcon: Icon(Icons.person),
-      page: HomePage(),
+      page: PlayerPage(),
     ),
     NavItem(
       label: "Teams",
