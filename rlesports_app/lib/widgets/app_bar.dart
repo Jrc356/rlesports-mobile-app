@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:rlesports_app/theme/colors.dart';
 import 'package:rlesports_app/theme/sizes.dart';
+import 'package:rlesports_app/widgets/search_bar.dart';
 
 class RLAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final searchText = TextEditingController();
   final bool useBackButton;
 
-  RLAppBar({Key? key, this.useBackButton = false}) : super(key: key);
+  const RLAppBar({Key? key, this.useBackButton = false}) : super(key: key);
 
   @override
   PreferredSizeWidget build(BuildContext context) {
@@ -31,6 +31,7 @@ class RLAppBar extends StatelessWidget implements PreferredSizeWidget {
           size: 40,
         ),
         onPressed: () => {
+          // TODO: open app tray
           print("Menu tapped"),
         },
       );
@@ -40,27 +41,7 @@ class RLAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       toolbarHeight: preferredSize.height,
       leading: leadingIcon,
-      title: Container(
-        width: double.infinity,
-        height: 40,
-        decoration: BoxDecoration(
-            color: AppColors.white, borderRadius: BorderRadius.circular(5)),
-        child: Center(
-          child: TextField(
-            controller: searchText,
-            decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search),
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.clear),
-                  onPressed: () {
-                    searchText.clear();
-                  },
-                ),
-                hintText: 'Search...',
-                border: InputBorder.none),
-          ),
-        ),
-      ),
+      title: const SearchBar(),
       backgroundColor: AppColors.matteGrey,
       shape: const Border(
         bottom: BorderSide(
