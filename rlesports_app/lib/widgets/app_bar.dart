@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rlesports_app/assets/colors.dart';
-import 'package:rlesports_app/assets/sizes.dart';
+import 'package:rlesports_app/theme/colors.dart';
+import 'package:rlesports_app/theme/sizes.dart';
 
 class RLAppBar extends StatelessWidget implements PreferredSizeWidget {
   final searchText = TextEditingController();

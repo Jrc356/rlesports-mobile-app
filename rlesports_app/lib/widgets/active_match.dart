@@ -1,73 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:rlesports_app/assets/colors.dart';
-
-class BestOfSetMarkers extends StatelessWidget {
-  final Color color;
-  final int bestOf;
-  final int hasWon;
-  final bool reverse;
-  const BestOfSetMarkers({
-    Key? key,
-    required this.color,
-    required this.hasWon,
-    this.bestOf = 5,
-    this.reverse = false,
-  }) : super(key: key);
-
-  Container makeMarker(bool enabled) {
-    return Container(
-      decoration: BoxDecoration(
-        color: enabled ? color : AppColors.whiteGradient_1,
-        border: Border.all(color: AppColors.matteGrey, width: 1.5),
-      ),
-      height: 13.28,
-      width: 26.56,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    int bo = (bestOf / 2).ceil();
-
-    List<Container> markers = <Container>[];
-    if (reverse) {
-      for (int i = 0; i < bo; i++) {
-        markers.insert(0, makeMarker(i < hasWon));
-      }
-    } else {
-      for (int i = 0; i < bo; i++) {
-        markers.add(makeMarker(i < hasWon));
-      }
-    }
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: markers,
-    );
-  }
-}
+import 'package:rlesports_app/models/match.dart';
+import 'package:rlesports_app/theme/colors.dart';
+import 'package:rlesports_app/widgets/best_of_set_markers.dart';
 
 class ActiveMatch extends StatelessWidget {
-  final int bestOf;
-  final String timeRemaining;
-  final Image orangeTeamImage;
-  final int orangeTeamScore;
-  final int orangeTeamSetScore;
-  final int blueTeamScore;
-  final int blueTeamSetScore;
-  final Image blueTeamImage;
+  final Match match;
 
-  const ActiveMatch(
-      {Key? key,
-      required this.bestOf,
-      required this.timeRemaining,
-      required this.orangeTeamImage,
-      required this.orangeTeamScore,
-      required this.orangeTeamSetScore,
-      required this.blueTeamScore,
-      required this.blueTeamSetScore,
-      required this.blueTeamImage})
-      : super(key: key);
+  const ActiveMatch({
+    Key? key,
+    required this.match,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -78,16 +20,17 @@ class ActiveMatch extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10),
       margin: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(15)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.5), //color of shadow
-              spreadRadius: 2, //spread radius
-              blurRadius: 7, // blur radius
-              offset: const Offset(1, 3), // changes position of shadow
-            ),
-          ],
-          gradient: AppColors.whiteGradient),
+        borderRadius: const BorderRadius.all(Radius.circular(15)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.5), //color of shadow
+            spreadRadius: 2, //spread radius
+            blurRadius: 7, // blur radius
+            offset: const Offset(1, 3), // changes position of shadow
+          ),
+        ],
+        gradient: AppColors.whiteGradient,
+      ),
       child: Align(
         alignment: Alignment.center,
         child: Stack(
@@ -96,7 +39,7 @@ class ActiveMatch extends StatelessWidget {
               // Orange current game score
               alignment: const Alignment(-0.4, -0.4),
               child: Text(
-                orangeTeamScore.toString(),
+                match.orangeTeamScore.toString(),
                 style: const TextStyle(fontSize: 31.88),
               ),
             ),
@@ -105,7 +48,8 @@ class ActiveMatch extends StatelessWidget {
               alignment: const Alignment(0, -1),
               child: Text(
                 "Game " +
-                    (blueTeamSetScore + orangeTeamSetScore + 1).toString(),
+                    (match.blueTeamSetScore! + match.orangeTeamSetScore! + 1)
+                        .toString(),
                 style: const TextStyle(fontSize: 21.25),
               ),
             ),
@@ -121,7 +65,7 @@ class ActiveMatch extends StatelessWidget {
               // remaining match time
               alignment: const Alignment(0, 1),
               child: Text(
-                timeRemaining,
+                match.timeRemaining!,
                 style: const TextStyle(fontSize: 15.94),
               ),
             ),
@@ -129,19 +73,27 @@ class ActiveMatch extends StatelessWidget {
               // Blue team current score
               alignment: const Alignment(0.4, -0.4),
               child: Text(
-                blueTeamScore.toString(),
+                match.blueTeamScore.toString(),
                 style: const TextStyle(fontSize: 31.88),
               ),
             ),
             Align(
               // Orange Team Image
               alignment: const Alignment(-0.9, -1.5),
-              child: orangeTeamImage,
+              child: Image.network(
+                match.orangeTeamImageUrl!,
+                width: 70,
+                height: 70,
+              ),
             ),
             Align(
               // Blue Team Image
               alignment: const Alignment(0.9, -1.5),
-              child: blueTeamImage,
+              child: Image.network(
+                match.blueTeamImageUrl!,
+                width: 70,
+                height: 70,
+              ),
             ),
             Align(
               // Set Markers
@@ -149,20 +101,20 @@ class ActiveMatch extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
-                  children: [
+                  children: <Widget>[
                     BestOfSetMarkers(
                       // Orange team set markers
                       color: AppColors.rlOrange,
-                      hasWon: orangeTeamSetScore,
-                      bestOf: bestOf,
+                      hasWon: match.orangeTeamSetScore!,
+                      bestOf: match.bestOf!,
                       reverse: true,
                     ),
                     const Expanded(child: SizedBox()),
                     BestOfSetMarkers(
                       // Blue team set markers
                       color: AppColors.rlBlue,
-                      hasWon: blueTeamSetScore,
-                      bestOf: bestOf,
+                      hasWon: match.blueTeamSetScore!,
+                      bestOf: match.bestOf!,
                     ),
                   ],
                 ),
