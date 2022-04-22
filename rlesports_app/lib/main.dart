@@ -92,7 +92,7 @@ class _MainPageState extends State<MainPage> {
     }
 
     return Scaffold(
-      appBar: RLAppBar(),
+      appBar: const RLAppBar(),
       body: navItems[_selectedIndex].page,
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(

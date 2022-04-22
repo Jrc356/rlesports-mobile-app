@@ -56,7 +56,7 @@ class PlayerDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: RLAppBar(useBackButton: true),
+      appBar: const RLAppBar(useBackButton: true),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
