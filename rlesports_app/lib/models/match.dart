@@ -33,12 +33,12 @@ List<Match> getDummyActiveMatches() {
       orangeTeamScore: 6,
       blueTeamScore: 2,
       orangeTeamSetScore: 3,
-      blueTeam: Team(
+      orangeTeam: Team(
         name: "G2",
         imageUrl:
             "https://liquipedia.net/commons/images/thumb/d/d3/G2_Esports_2019_lightmode.png/600px-G2_Esports_2019_lightmode.png",
       ),
-      orangeTeam: Team(
+      blueTeam: Team(
         name: "NRG",
         imageUrl:
             "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/NRG_Esports_logo.svg/1200px-NRG_Esports_logo.svg.png",
