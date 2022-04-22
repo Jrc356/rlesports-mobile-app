@@ -30,14 +30,16 @@ class FrostedPane extends StatelessWidget {
       ),
       child: Align(
         alignment: Alignment.center,
-        child: Column(children: <Widget>[
-          if (label != "")
-            Container(
-              child: Text(label),
-              padding: const EdgeInsets.symmetric(vertical: 5),
-            ),
-          child,
-        ]),
+        child: Column(
+          children: <Widget>[
+            if (label != "")
+              Container(
+                child: Text(label),
+                padding: const EdgeInsets.symmetric(vertical: 5),
+              ),
+            child,
+          ],
+        ),
       ),
     );
   }
