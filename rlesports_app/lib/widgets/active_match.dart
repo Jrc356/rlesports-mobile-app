@@ -81,7 +81,7 @@ class ActiveMatch extends StatelessWidget {
               // Orange Team Image
               alignment: const Alignment(-0.9, -1.5),
               child: Image.network(
-                match.orangeTeamImageUrl!,
+                match.orangeTeam.imageUrl,
                 width: 70,
                 height: 70,
               ),
@@ -90,7 +90,7 @@ class ActiveMatch extends StatelessWidget {
               // Blue Team Image
               alignment: const Alignment(0.9, -1.5),
               child: Image.network(
-                match.blueTeamImageUrl!,
+                match.blueTeam.imageUrl,
                 width: 70,
                 height: 70,
               ),
@@ -106,7 +106,7 @@ class ActiveMatch extends StatelessWidget {
                       // Orange team set markers
                       color: AppColors.rlOrange,
                       hasWon: match.orangeTeamSetScore!,
-                      bestOf: match.bestOf!,
+                      bestOf: match.bestOf,
                       reverse: true,
                     ),
                     const Expanded(child: SizedBox()),
@@ -114,7 +114,7 @@ class ActiveMatch extends StatelessWidget {
                       // Blue team set markers
                       color: AppColors.rlBlue,
                       hasWon: match.blueTeamSetScore!,
-                      bestOf: match.bestOf!,
+                      bestOf: match.bestOf,
                     ),
                   ],
                 ),
