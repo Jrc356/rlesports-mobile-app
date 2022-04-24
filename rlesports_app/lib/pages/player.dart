@@ -3,6 +3,7 @@ import 'package:rlesports_app/models/player.dart';
 import 'package:rlesports_app/theme/colors.dart';
 import 'package:rlesports_app/widgets/app_bar.dart';
 import 'package:rlesports_app/widgets/frosted_pane.dart';
+import 'package:rlesports_app/widgets/player_details.dart';
 import 'package:rlesports_app/widgets/player_list_item.dart';
 
 class PlayerPage extends StatelessWidget {
@@ -57,28 +58,7 @@ class PlayerDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const RLAppBar(useBackButton: true),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppColors.rlOrange.withOpacity(.8),
-              AppColors.rlBlue.withOpacity(.8),
-            ],
-          ),
-        ),
-        child: Center(
-          child: ListView(
-            padding: const EdgeInsets.all(10),
-            children: const <Widget>[
-              FrostedPane(
-                child: Text("Test"),
-              ),
-            ],
-          ),
-        ),
-      ),
+      body: PlayerDetails(player: player),
     );
   }
 }
