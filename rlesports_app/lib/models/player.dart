@@ -10,6 +10,16 @@ class Player {
     required this.role,
     required this.nationality,
   });
+
+  Map<String, String> getDetails() {
+    return {
+      "Name": irlName,
+      "Nationality": nationality,
+      "Team": team,
+      "Age": age,
+      "Role": role,
+    };
+  }
 }
 
 List<Player> getDummyPlayers() {
