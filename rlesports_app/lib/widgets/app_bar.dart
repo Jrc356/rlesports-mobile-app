@@ -5,8 +5,13 @@ import 'package:rlesports_app/widgets/search_bar.dart';
 
 class RLAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool useBackButton;
+  final bool useSearchBar;
 
-  const RLAppBar({Key? key, this.useBackButton = false}) : super(key: key);
+  const RLAppBar({
+    Key? key,
+    this.useBackButton = false,
+    this.useSearchBar = true,
+  }) : super(key: key);
 
   @override
   PreferredSizeWidget build(BuildContext context) {
@@ -41,7 +46,7 @@ class RLAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       toolbarHeight: preferredSize.height,
       leading: leadingIcon,
-      title: const SearchBar(),
+      title: useSearchBar ? const SearchBar() : null,
       backgroundColor: AppColors.matteGrey,
       shape: const Border(
         bottom: BorderSide(

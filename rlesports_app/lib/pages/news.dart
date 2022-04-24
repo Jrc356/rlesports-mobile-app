@@ -7,15 +7,16 @@ import 'package:rlesports_app/widgets/article.dart';
 class NewsPage extends StatelessWidget {
   const NewsPage({Key? key}) : super(key: key);
 
-  List<NewsArticle> getArticles() {
-    // TODO: Get this from a server as well
-    List<NewsArticle> articles = getDummyNewsArticles();
+  Future<List<NewsArticle>> getArticles() {
+    // TODO: add way to enable/disable different article sources
+    // TODO: add other article getters
+    Future<List<NewsArticle>> articles = getShiftArticles();
     return articles;
   }
 
   @override
   Widget build(BuildContext context) {
-    List<NewsArticle> articles = getArticles();
+    Future<List<NewsArticle>> articles = getArticles();
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -27,14 +28,23 @@ class NewsPage extends StatelessWidget {
           ],
         ),
       ),
-      child: ListView.builder(
-        padding: const EdgeInsets.all(10),
-        itemCount: articles.length,
-        itemBuilder: (context, index) {
-          return FrostedPane(
-            child: Article(
-              newsArticle: articles[index],
-            ),
+      child: FutureBuilder(
+        future: articles,
+        builder: (BuildContext context, AsyncSnapshot<List<NewsArticle>> snap) {
+          if (snap.connectionState == ConnectionState.none ||
+              snap.data == null) {
+            return const CircularProgressIndicator();
+          }
+          return ListView.builder(
+            padding: const EdgeInsets.all(10),
+            itemCount: snap.data?.length,
+            itemBuilder: (context, index) {
+              return FrostedPane(
+                child: Article(
+                  newsArticle: snap.data![index],
+                ),
+              );
+            },
           );
         },
       ),
