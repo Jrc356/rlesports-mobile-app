@@ -31,9 +31,8 @@ class NewsPage extends StatelessWidget {
       child: FutureBuilder(
         future: articles,
         builder: (BuildContext context, AsyncSnapshot<List<NewsArticle>> snap) {
-          if (snap.connectionState == ConnectionState.none ||
-              snap.data == null) {
-            return const CircularProgressIndicator();
+          if (snap.data == null) {
+            return const Center(child: CircularProgressIndicator());
           }
           return ListView.builder(
             padding: const EdgeInsets.all(10),
