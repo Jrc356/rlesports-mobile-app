@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rlesports_app/models/player.dart';
 import 'package:rlesports_app/pages/player.dart';
 import 'package:rlesports_app/theme/colors.dart';
+import 'package:rlesports_app/widgets/player_image.dart';
 
 class PlayerListItem extends StatelessWidget {
   final Player player;
@@ -44,19 +45,7 @@ class PlayerListItem extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Row(
             children: <Widget>[
-              Container(
-                // Player image
-                width: 53.13,
-                height: 53.12,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.white,
-                  image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: Image.network(player.imageUrl).image,
-                  ),
-                ),
-              ),
+              PlayerImage(player: player),
               Padding(
                   // Player name and team
                   padding: const EdgeInsets.only(left: 5),
