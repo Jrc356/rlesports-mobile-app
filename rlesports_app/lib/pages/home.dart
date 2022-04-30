@@ -24,6 +24,8 @@ class HomePage extends StatelessWidget {
     List<Match> activeMatches = getActiveMatches();
     List<Match> scheduledMatches = getScheduledMatches();
     return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -34,27 +36,35 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      child: Center(
-        child: ListView(
-          padding: const EdgeInsets.all(10),
-          children: <Widget>[
-            FrostedPane(
-              label: "Active Matches",
-              child: Column(
-                children:
-                    activeMatches.map((e) => ActiveMatch(match: e)).toList(),
-              ),
+      child: ListView(
+        // mainAxisAlignment: MainAxisAlignment.center,
+        padding: const EdgeInsets.all(10),
+        children: <Widget>[
+          FrostedPane(
+            child: Column(
+              children: List.generate(activeMatches.length + 1, (index) {
+                if (index == 0) {
+                  return Container(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: const Text("Active Matches"));
+                }
+                return ActiveMatch(match: activeMatches[index - 1]);
+              }),
             ),
-            FrostedPane(
-              label: "Schedule",
-              child: Column(
-                children: scheduledMatches
-                    .map((e) => ScheduledMatch(match: e))
-                    .toList(),
-              ),
+          ),
+          FrostedPane(
+            child: Column(
+              children: List.generate(scheduledMatches.length + 1, (index) {
+                if (index == 0) {
+                  return Container(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: const Text("Scheduled Matches"));
+                }
+                return ScheduledMatch(match: scheduledMatches[index - 1]);
+              }),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

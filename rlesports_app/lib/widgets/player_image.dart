@@ -7,13 +7,13 @@ class PlayerImage extends StatelessWidget {
   final double width;
   final double height;
   final bool useShadow;
-  const PlayerImage(
-      {Key? key,
-      required this.player,
-      this.width = 53.13,
-      this.height = 53.13,
-      this.useShadow = false})
-      : super(key: key);
+  const PlayerImage({
+    Key? key,
+    required this.player,
+    this.width = 53.13,
+    this.height = 53.13,
+    this.useShadow = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,9 @@ class PlayerImage extends StatelessWidget {
             : [],
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: Image.network(player.imageUrl).image,
+          image: Image.network(player.imageUrl ??
+                  "https://media.sketchfab.com/models/9910f0a5d158425bbc7deb60c7a81f69/thumbnails/14ce0f826a6f4e3d9f2fb5921cd98a74/c5a09b29d7f649559972363859e7c80f.jpeg")
+              .image,
         ),
       ),
     );

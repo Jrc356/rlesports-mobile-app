@@ -58,12 +58,14 @@ class PlayerListItem extends StatelessWidget {
                           fontSize: 24,
                         ),
                       ),
-                      Text(
-                        player.team,
-                        style: const TextStyle(
-                          fontSize: 12,
-                        ),
-                      ),
+                      player.team != null
+                          ? Text(
+                              player.team!,
+                              style: const TextStyle(
+                                fontSize: 12,
+                              ),
+                            )
+                          : Container(),
                     ],
                   )),
               const Expanded(child: SizedBox()),

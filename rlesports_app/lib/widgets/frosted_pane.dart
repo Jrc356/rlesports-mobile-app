@@ -3,10 +3,10 @@ import 'package:rlesports_app/theme/colors.dart';
 
 class FrostedPane extends StatelessWidget {
   final Widget child;
-  final String label;
-
-  const FrostedPane({Key? key, required this.child, this.label = ""})
-      : super(key: key);
+  const FrostedPane({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,19 +28,7 @@ class FrostedPane extends StatelessWidget {
           ],
         ),
       ),
-      child: Align(
-        alignment: Alignment.center,
-        child: Column(
-          children: <Widget>[
-            if (label != "")
-              Container(
-                child: Text(label),
-                padding: const EdgeInsets.symmetric(vertical: 5),
-              ),
-            child,
-          ],
-        ),
-      ),
+      child: child,
     );
   }
 }
