@@ -39,41 +39,47 @@ class _PlayerListViewState extends State<PlayerListView> {
   @override
   Widget build(BuildContext context) {
     return Background(
-      child: Center(
-        child: FutureBuilder(
-          future: playersFuture,
-          builder:
-              (BuildContext context, AsyncSnapshot<List<Player>> snapshot) {
-            if (snapshot.hasError) {
-              return const FrostedPane(
-                child: Text("An error occurred"),
-              );
-            }
+      child: FutureBuilder(
+        future: playersFuture,
+        builder: (BuildContext context, AsyncSnapshot<List<Player>> snapshot) {
+          if (snapshot.hasError) {
+            return const FrostedPane(
+              child: Text("An error occurred"),
+            );
+          }
 
-            if (snapshot.data == null) {
-              return const CircularProgressIndicator();
-            }
+          if (snapshot.data == null) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-            final List<Player> players = snapshot.data!;
-            loadedPlayers.addAll(players);
-            return FrostedPane(
-              bottomMargin: 0,
+          final List<Player> players = snapshot.data!;
+          loadedPlayers.addAll(players);
+          return SingleChildScrollView(
+            controller: scrollController,
+            physics: const ScrollPhysics(),
+            child: FrostedPane(
+              topMargin: 5,
+              bottomMargin: 5,
+              bottomPadding: 0,
+              topPadding: 0,
               child: ListView.builder(
                 padding: const EdgeInsets.all(10),
-                controller: scrollController,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
                 itemCount: loadedPlayers.length,
                 itemBuilder: ((context, index) {
                   return PlayerListItem(player: loadedPlayers[index]);
                 }),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
 }
 
+// TODO: I don't like this being here or how PlayerDetails is a widget instead of a page
 class PlayerDetailsView extends StatelessWidget {
   final Player player;
   const PlayerDetailsView({
