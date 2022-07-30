@@ -31,18 +31,16 @@ class Article extends StatelessWidget {
         )
       },
       child: Container(
-        width: .85 * MediaQuery.of(context).size.width,
-        // padding: const EdgeInsets.symmetric(vertical: 10),
-        margin: const EdgeInsets.symmetric(vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.network(
-              newsArticle.imageUrl,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 0),
-              child: Text(
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        child: Center(
+          child: Column(
+            children: [
+              Image.network(
+                newsArticle.imageUrl,
+                height: 234,
+                width: 480,
+              ),
+              Text(
                 newsArticle.title,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
@@ -50,8 +48,8 @@ class Article extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
