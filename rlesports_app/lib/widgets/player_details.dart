@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rlesports_app/models/player.dart';
 import 'package:rlesports_app/theme/colors.dart';
+import 'package:rlesports_app/widgets/background.dart';
 import 'package:rlesports_app/widgets/frosted_pane.dart';
 import 'package:rlesports_app/widgets/player_image.dart';
 
@@ -10,17 +11,7 @@ class PlayerDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            AppColors.rlOrange.withOpacity(.8),
-            AppColors.rlBlue.withOpacity(.8),
-          ],
-        ),
-      ),
+    return Background(
       child: Center(
         child: ListView(
           padding: const EdgeInsets.all(10),
@@ -63,11 +54,10 @@ class DetailsBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: .85 * MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      margin: const EdgeInsets.symmetric(vertical: 5),
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(50)),
+        borderRadius: BorderRadius.all(Radius.circular(20)),
         gradient: AppColors.whiteGradient,
       ),
       child: Padding(
@@ -76,6 +66,7 @@ class DetailsBox extends StatelessWidget {
           alignment: Alignment.topCenter,
           child: Column(
             children: <Widget>[
+              // Player Alias
               Text(
                 player.name,
                 style: const TextStyle(
@@ -83,33 +74,40 @@ class DetailsBox extends StatelessWidget {
                   decoration: TextDecoration.underline,
                 ),
               ),
+              // Other player details
               ...player
                   .getDetails()
                   .entries
                   .map(
                     (entry) => entry.key != "imageUrl"
                         ? Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: RichText(
-                              text: TextSpan(
-                                style: const TextStyle(
-                                  color: Colors.black,
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 5,
+                              horizontal: 10,
+                            ),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: "${entry.key}: ",
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: entry.value,
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: "${entry.key}: ",
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: entry.value,
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ],
                               ),
                             ),
                           )
