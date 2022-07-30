@@ -21,7 +21,11 @@ Future<Map<String, String>> getImageUrls(List<String> playerNames) async {
     var data = jsonDecode(res.body);
 
     for (var page in data["query"]["pages"].entries) {
-      String imgUrl = page.value["pageprops"]["metaimageurl"] ?? "";
+      String imgUrl = "";
+      if (page.value.containsKey("pageprops") &&
+          page.value["pageprops"].containsKey("metaimageurl")) {
+        imgUrl = page.value["pageprops"]["metaimageurl"];
+      }
 
       if (imgUrl.contains("PlayerImagePlaceholder") || imgUrl.isEmpty) {
         imgUrl =

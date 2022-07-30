@@ -61,7 +61,7 @@ class _MainPageState extends State<MainPage> {
       label: "Players",
       icon: Icon(Icons.person_outlined),
       activeIcon: Icon(Icons.person),
-      page: PlayerPage(),
+      page: PlayerListView(),
     ),
     NavItem(
       label: "Teams",

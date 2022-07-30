@@ -1,50 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:rlesports_app/models/player.dart';
 import 'package:rlesports_app/services/octanegg.dart' as octanegg;
-import 'package:rlesports_app/theme/colors.dart';
 import 'package:rlesports_app/widgets/app_bar.dart';
+import 'package:rlesports_app/widgets/background.dart';
 import 'package:rlesports_app/widgets/frosted_pane.dart';
 import 'package:rlesports_app/widgets/player_details.dart';
 import 'package:rlesports_app/widgets/player_list_item.dart';
 
-class PlayerPage extends StatefulWidget {
-  const PlayerPage({Key? key}) : super(key: key);
+class PlayerListView extends StatefulWidget {
+  // TODO: Persist player list across pages
+  const PlayerListView({Key? key}) : super(key: key);
 
   @override
-  State<PlayerPage> createState() => _PlayerPageState();
+  State<PlayerListView> createState() => _PlayerListViewState();
 }
 
-class _PlayerPageState extends State<PlayerPage> {
-  late Future<List<Player>> _players;
-  int _page = 1;
-
-  Future<List<Player>> updateAndGetList(String page) async {
-    return octanegg.getPlayers(page: page);
-  }
+class _PlayerListViewState extends State<PlayerListView> {
+  late Future<List<Player>> playersFuture;
+  List<Player> loadedPlayers = [];
+  ScrollController scrollController = ScrollController();
+  int page = 1;
 
   @override
   void initState() {
     super.initState();
+    scrollController.addListener(() {
+      if (scrollController.position.extentAfter < 400) {
+        setState(() {
+          page++;
+          playersFuture = octanegg.getPlayers(page: page);
+        });
+      }
+    });
     // initial load
-    _players = updateAndGetList(_page.toString());
+    playersFuture = octanegg.getPlayers(page: page);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            AppColors.rlOrange.withOpacity(.8),
-            AppColors.rlBlue.withOpacity(.8),
-          ],
-        ),
-      ),
+    return Background(
       child: Center(
         child: FutureBuilder(
-          future: _players,
+          future: playersFuture,
           builder:
               (BuildContext context, AsyncSnapshot<List<Player>> snapshot) {
             if (snapshot.hasError) {
@@ -57,13 +54,16 @@ class _PlayerPageState extends State<PlayerPage> {
               return const CircularProgressIndicator();
             }
 
-            final List<Player> items = snapshot.data!;
+            final List<Player> players = snapshot.data!;
+            loadedPlayers.addAll(players);
             return FrostedPane(
+              bottomMargin: 0,
               child: ListView.builder(
                 padding: const EdgeInsets.all(10),
-                itemCount: items.length,
+                controller: scrollController,
+                itemCount: loadedPlayers.length,
                 itemBuilder: ((context, index) {
-                  return PlayerListItem(player: items[index]);
+                  return PlayerListItem(player: loadedPlayers[index]);
                 }),
               ),
             );
@@ -74,9 +74,9 @@ class _PlayerPageState extends State<PlayerPage> {
   }
 }
 
-class PlayerDetailsPage extends StatelessWidget {
+class PlayerDetailsView extends StatelessWidget {
   final Player player;
-  const PlayerDetailsPage({
+  const PlayerDetailsView({
     Key? key,
     required this.player,
   }) : super(key: key);

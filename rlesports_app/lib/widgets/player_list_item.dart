@@ -20,7 +20,7 @@ class PlayerListItem extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      PlayerDetailsPage(player: player)),
+                      PlayerDetailsView(player: player)),
             ),
           }),
       child: Container(

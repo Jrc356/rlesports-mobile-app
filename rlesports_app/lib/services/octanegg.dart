@@ -19,12 +19,12 @@ Future<http.Response> request(
   return http.get(Uri.parse(url));
 }
 
-Future<List<Player>> getPlayers({String page = "1"}) async {
+Future<List<Player>> getPlayers({int page = 1}) async {
   List<Player> players = [];
 
   http.Response res = await request(endpoint: "players", params: {
     "perPage": "25",
-    "page": page,
+    "page": page.toString(),
   });
 
   if (res.statusCode == 200) {
@@ -41,11 +41,12 @@ Future<List<Player>> getPlayers({String page = "1"}) async {
     for (var player in playerData) {
       players.add(
         Player(
-          name: player["tag"].trim(),
-          irlName: player["name"],
-          team: player["team"]?["name"],
-          imageUrl: imagesUrls[player["tag"]],
-          nationality: player["country"],
+          name: player["tag"].trim().toString(),
+          irlName: player["name"].toString(),
+          team: player["team"]?["name"].toString(),
+          imageUrl: imagesUrls[player["tag"]] ??
+              "https://media.sketchfab.com/models/9910f0a5d158425bbc7deb60c7a81f69/thumbnails/14ce0f826a6f4e3d9f2fb5921cd98a74/c5a09b29d7f649559972363859e7c80f.jpeg",
+          nationality: player["country"].toString(),
         ),
       );
     }
