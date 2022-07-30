@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rlesports_app/models/news_article.dart';
 import 'package:rlesports_app/services/shiftgg.dart' as shiftgg;
-import 'package:rlesports_app/theme/colors.dart';
+import 'package:rlesports_app/widgets/background.dart';
 import 'package:rlesports_app/widgets/frosted_pane.dart';
 import 'package:rlesports_app/widgets/article.dart';
 
@@ -18,17 +18,7 @@ class NewsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future<List<NewsArticle>> articles = getAllArticles();
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            AppColors.rlOrange.withOpacity(.8),
-            AppColors.rlBlue.withOpacity(.8),
-          ],
-        ),
-      ),
+    return Background(
       child: FutureBuilder(
         future: articles,
         builder: (BuildContext context, AsyncSnapshot<List<NewsArticle>> snap) {
@@ -36,7 +26,6 @@ class NewsPage extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           return ListView.builder(
-            padding: const EdgeInsets.all(10),
             itemCount: snap.data?.length,
             itemBuilder: (context, index) {
               return FrostedPane(

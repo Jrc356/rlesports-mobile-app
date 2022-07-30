@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rlesports_app/models/match.dart';
-import 'package:rlesports_app/theme/colors.dart';
 import 'package:rlesports_app/widgets/active_match.dart';
+import 'package:rlesports_app/widgets/background.dart';
 import 'package:rlesports_app/widgets/frosted_pane.dart';
 import 'package:rlesports_app/widgets/scheduled_match.dart';
 
@@ -23,22 +23,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Match> activeMatches = getActiveMatches();
     List<Match> scheduledMatches = getScheduledMatches();
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            AppColors.rlOrange.withOpacity(.8),
-            AppColors.rlBlue.withOpacity(.8),
-          ],
-        ),
-      ),
+    return Background(
       child: ListView(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        padding: const EdgeInsets.all(10),
         children: <Widget>[
           FrostedPane(
             child: Column(
