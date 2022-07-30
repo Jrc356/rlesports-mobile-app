@@ -1,21 +1,24 @@
 class Player {
   final String? team, irlName, imageUrl;
+  bool isCoach = false;
   final String name, nationality;
 
-  const Player({
+  Player({
     required this.name,
     this.irlName,
     this.team,
     this.imageUrl,
+    this.isCoach = false,
     required this.nationality,
   });
 
   Map<String, String> getDetails() {
-    // TODO: I don't like this
-    return {
-      "Name": irlName ?? "",
-      "Nationality": nationality,
-      "Team": team ?? "",
-    };
+    Map<String, String> details = {};
+    details["Name"] = irlName == "null" ? "Unknown" : irlName ?? "";
+    details["Nationality"] =
+        nationality == "null" ? "Unknown" : nationality.toUpperCase();
+    details["Team"] = team == "null" ? "Unknown" : team ?? "None";
+    details["Position"] = isCoach ? "Coach" : "Player";
+    return details;
   }
 }
