@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:rlesports_app/models/player.dart';
 import 'package:rlesports_app/theme/colors.dart';
 
-class PlayerImage extends StatelessWidget {
-  final Player player;
+class EntityImage extends StatelessWidget {
+  final String url;
   final double width;
   final double height;
   final bool useShadow;
-  const PlayerImage({
+  const EntityImage({
     Key? key,
-    required this.player,
+    required this.url,
     this.width = 53.13,
     this.height = 53.13,
     this.useShadow = false,
@@ -35,8 +34,7 @@ class PlayerImage extends StatelessWidget {
             : [],
         image: DecorationImage(
           fit: BoxFit.cover,
-          // player.imageUrl will always be something as there is a default
-          image: Image.network(player.imageUrl.toString()).image,
+          image: NetworkImage(url),
         ),
       ),
     );
