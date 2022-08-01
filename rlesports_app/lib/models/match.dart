@@ -7,7 +7,7 @@ class Match {
       orangeTeamSetScore,
       blueTeamScore,
       blueTeamSetScore;
-  final String? timeRemaining, startTime;
+  final String? timeRemaining, startTime, tier;
   final Team blueTeam, orangeTeam;
   final List<Game> games;
 
@@ -21,6 +21,7 @@ class Match {
     required this.orangeTeam,
     required this.blueTeam,
     this.startTime,
+    this.tier,
     this.games = const [],
   });
 }
