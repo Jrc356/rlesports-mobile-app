@@ -6,6 +6,7 @@ import 'package:rlesports_app/widgets/frosted_pane.dart';
 import 'package:rlesports_app/widgets/article.dart';
 
 class NewsPage extends StatelessWidget {
+  // TODO: this should probably be stateful
   const NewsPage({Key? key}) : super(key: key);
 
   Future<List<NewsArticle>> getAllArticles() {
@@ -29,6 +30,7 @@ class NewsPage extends StatelessWidget {
             itemCount: snap.data?.length,
             itemBuilder: (context, index) {
               return FrostedPane(
+                bottomPadding: 25,
                 child: Article(
                   newsArticle: snap.data![index],
                 ),
