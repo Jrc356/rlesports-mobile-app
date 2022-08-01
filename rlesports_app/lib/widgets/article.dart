@@ -11,12 +11,6 @@ class Article extends StatelessWidget {
     required this.newsArticle,
   }) : super(key: key);
 
-  Widget getWebView(String url) {
-    return WebView(
-      initialUrl: url,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -40,12 +34,17 @@ class Article extends StatelessWidget {
                 height: 234,
                 width: 480,
               ),
-              Text(
-                newsArticle.title,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 10,
+                ),
+                child: Text(
+                  newsArticle.title,
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
