@@ -19,7 +19,7 @@ Future<List<NewsArticle>> getArticles() async {
       String? imageUrl = imgLink.children[0].attributes["data-src"];
       String? articleStub = imgLink.attributes["href"];
 
-      String title = entry.children[2].children[1].children[0].innerHtml;
+      String title = entry.children[2].children[1].children[0].innerHtml.trim();
       String articleUrl = "$shiftUrl$articleStub";
 
       articles.add(NewsArticle(
