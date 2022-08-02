@@ -59,19 +59,10 @@ class _TeamListState extends State<TeamList> {
                   shrinkWrap: true,
                   itemCount: loadedTeams.length,
                   itemBuilder: ((context, index) {
-                    return GestureDetector(
-                      onTap: (() => {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      TeamDetails(team: loadedTeams[index])),
-                            ),
-                          }),
-                      child: ListItem(
-                        text: loadedTeams[index].name,
-                        imageUrl: loadedTeams[index].imageUrl.toString(),
-                      ),
+                    return ListItem(
+                      text: loadedTeams[index].name,
+                      imageUrl: loadedTeams[index].imageUrl.toString(),
+                      pageToPush: TeamDetails(team: loadedTeams[index]),
                     );
                   }),
                 ),

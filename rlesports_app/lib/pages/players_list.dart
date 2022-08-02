@@ -72,7 +72,9 @@ class _PlayerListState extends State<PlayerList> {
                           }),
                       child: ListItem(
                           imageUrl: loadedPlayers[index].imageUrl.toString(),
-                          text: loadedPlayers[index].name),
+                          text: loadedPlayers[index].name,
+                          pageToPush:
+                              PlayerDetails(player: loadedPlayers[index])),
                     );
                   }),
                 ),

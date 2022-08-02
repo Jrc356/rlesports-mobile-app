@@ -15,6 +15,17 @@ class AppColors {
     ],
   );
 
+  static const grayGradient_1 = Color(0xffB3B3B3);
+  static const grayGradient_2 = Color.fromARGB(255, 70, 70, 70);
+  static const grayGradent = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      grayGradient_1,
+      grayGradient_2,
+    ],
+  );
+
   static const navBarActiveIconFill = Color(0xffF5F5F5);
   static const navBarActiveIconBorder = Color(0xff666666);
   static const navBarInactiveIconFill = Color(0xff2A2A2A);
