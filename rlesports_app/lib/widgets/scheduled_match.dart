@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rlesports_app/theme/colors.dart';
 import 'package:rlesports_app/models/match.dart';
+import 'package:intl/intl.dart';
 
 class ScheduledMatch extends StatelessWidget {
   final Match match;
@@ -34,16 +35,24 @@ class ScheduledMatch extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Align(
-              // vs text
-              alignment: const Alignment(-0.9, 0),
+              // date text
+              alignment: const Alignment(-0.9, -0.5),
               child: Text(
-                match.startTime!,
+                DateFormat().add_yMd().format(match.scheduledDateTime),
+                style: const TextStyle(fontSize: 15.94),
+              ),
+            ),
+            Align(
+              // time text
+              alignment: const Alignment(-0.9, 0.5),
+              child: Text(
+                DateFormat().add_jm().format(match.scheduledDateTime),
                 style: const TextStyle(fontSize: 15.94),
               ),
             ),
             const Align(
               // vs text
-              alignment: Alignment(0, 0),
+              alignment: Alignment(0.2, 0),
               child: Text(
                 "vs.",
                 style: TextStyle(fontSize: 15.94),
@@ -51,7 +60,7 @@ class ScheduledMatch extends StatelessWidget {
             ),
             Align(
               // Orange Team Image
-              alignment: const Alignment(-0.5, 0),
+              alignment: const Alignment(-0.3, 0),
               child: Image.network(
                 match.orangeTeam.imageUrl,
                 width: 70,
@@ -60,7 +69,7 @@ class ScheduledMatch extends StatelessWidget {
             ),
             Align(
               // Blue Team Image
-              alignment: const Alignment(0.5, 0),
+              alignment: const Alignment(0.8, 0),
               child: Image.network(
                 match.blueTeam.imageUrl,
                 width: 70,

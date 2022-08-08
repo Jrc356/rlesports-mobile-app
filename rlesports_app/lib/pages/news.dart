@@ -27,7 +27,7 @@ class NewsPage extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           return ListView.builder(
-            itemCount: snap.data?.length,
+            itemCount: snap.data!.length,
             itemBuilder: (context, index) {
               return FrostedPane(
                 bottomPadding: 25,

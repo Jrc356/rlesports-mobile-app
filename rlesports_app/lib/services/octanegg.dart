@@ -9,8 +9,11 @@ import 'package:rlesports_app/constants.dart';
 const String api = "https://zsr.octane.gg";
 const JsonDecoder decoder = JsonDecoder();
 
-Future<http.Response> request(
-    {required String endpoint, Map<String, String>? params}) {
+Future<http.Response> request({
+  required String endpoint,
+  Map<String, String>? params,
+  String? customParams,
+}) {
   String url = "$api/$endpoint?";
 
   if (params != null) {
@@ -19,59 +22,93 @@ Future<http.Response> request(
     }
   }
 
+  if (customParams != null) {
+    url += customParams;
+  }
+
+  print(url);
+
   return http.get(Uri.parse(url));
 }
 
 // getMatches gets a list of matches matching the specified criteria
 // TODO: Add more criteria params
-Future<List<Match>> getMatches({List<String>? tiers, int page = 1}) async {
+Future<List<Match>> getMatches({
+  List<String>? tiers,
+  DateTime? before,
+  DateTime? after,
+  int page = 1,
+}) async {
   List<Match> matches = [];
 
-  if (tiers != null) {
-    for (String tier in tiers) {
-      Map<String, String> reqParams = {
-        "perPage": "100",
-        "page": page.toString(),
-        "tier": tier,
-      };
+  Map<String, String> reqParams = {
+    "perPage": "100",
+    "page": page.toString(),
+  };
 
-      // Get all matches for specified teirs
-      http.Response res = await request(endpoint: "matches", params: reqParams);
-      if (res.statusCode == 200) {
-        final data = jsonDecode(res.body);
-        for (var match in data["matches"]) {
-          Team orangeTeam = Team(name: "TBD", imageUrl: defaultImage);
-          Team blueTeam = Team(name: "TBD", imageUrl: defaultImage);
+  if (before != null) {
+    reqParams["before"] = before.toUtc().toIso8601String();
+  }
 
-          // Get orange team
-          if (match.containsKey["orange"]) {
-            var odat = match["orange"]["team"]["team"];
-            orangeTeam = Team(
-              name: odat["name"],
-              imageUrl: odat["image"],
-              region: odat["region"],
-            );
-          }
+  if (after != null) {
+    reqParams["after"] = after.toUtc().toIso8601String();
+  }
 
-          // Get blue team
-          if (match.containsKey["blue"]) {
-            var bdat = match["blue"]["team"]["team"];
-            blueTeam = Team(
-              name: bdat["name"],
-              imageUrl: bdat["image"],
-              region: bdat["region"],
-            );
-          }
+  String customTierParam = "";
+  tiers ??= ["S"];
+  for (String tier in tiers) {
+    customTierParam += "tier=$tier&";
+  }
 
-          // Create match
-          matches.add(
-            Match(
-              bestOf: match["format"]["length"],
-              orangeTeam: orangeTeam,
-              blueTeam: blueTeam,
-            ),
+  // Get all matches for specified teirs
+  http.Response res = await request(
+    endpoint: "matches",
+    params: reqParams,
+    customParams: customTierParam,
+  );
+  if (res.statusCode == 200) {
+    final data = jsonDecode(res.body);
+    if (data["matches"].length > 0) {
+      for (var match in data["matches"]) {
+        Team orangeTeam = Team(name: "TBD", imageUrl: defaultImage);
+        Team blueTeam = Team(name: "TBD", imageUrl: defaultImage);
+
+        // Get orange team
+        if (match.containsKey("orange")) {
+          var odat = match["orange"]["team"]["team"];
+          orangeTeam = Team(
+            name: odat["name"],
+            imageUrl: odat["image"] ?? defaultImage,
+            region: odat["region"],
           );
         }
+
+        // Get blue team
+        if (match.containsKey("blue")) {
+          var bdat = match["blue"]["team"]["team"];
+          blueTeam = Team(
+            name: bdat["name"],
+            imageUrl: bdat["image"] ?? defaultImage,
+            region: bdat["region"],
+          );
+        }
+
+        DateTime date = DateTime.tryParse(match["date"]) ?? DateTime.now();
+
+        // TODO: probably not good but skip the match if both teams are TBDß
+        if (blueTeam.name == "TBD" && orangeTeam.name == "TBD") {
+          continue;
+        }
+
+        // Create match
+        matches.add(
+          Match(
+            bestOf: match["format"]["length"],
+            orangeTeam: orangeTeam,
+            blueTeam: blueTeam,
+            scheduledDateTime: date,
+          ),
+        );
       }
     }
   }
