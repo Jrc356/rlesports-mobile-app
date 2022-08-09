@@ -25,72 +25,66 @@ class ListItem extends StatefulWidget {
 class _ListItemState extends State<ListItem> {
   bool tapped = false;
 
-  // TODO: Inkwell doesn't work well with gradient
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        borderRadius: const BorderRadius.all(Radius.circular(15)),
-        onTap: (() {
-          // sleep(const Duration(seconds: 2));
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (BuildContext context) => widget.pageToPush,
-          //   ),
-          // );
-        }),
-        splashColor: Colors.black,
-        child: Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          margin: const EdgeInsets.symmetric(vertical: 5),
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(15)),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.5), //color of shadow
-                spreadRadius: 2, //spread radius
-                blurRadius: 7, // blur radius
-                offset: const Offset(1, 3), // changes position of shadow
-              ),
-            ],
-            gradient: AppColors.whiteGradient,
+    // TODO: I want this animated
+    return GestureDetector(
+      onTap: (() {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => widget.pageToPush,
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              children: <Widget>[
-                EntityImage(url: widget.imageUrl),
-                Padding(
-                  // Player name and team
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Text(
-                    widget.text.length < maxLength
-                        ? widget.text
-                        : widget.text.substring(
-                              0,
-                              min(widget.text.length, maxLength),
-                            ) +
-                            "...",
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                    ),
+        );
+      }),
+      child: Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        margin: const EdgeInsets.symmetric(vertical: 5),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(15)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.5), //color of shadow
+              spreadRadius: 2, //spread radius
+              blurRadius: 7, // blur radius
+              offset: const Offset(1, 3), // changes position of shadow
+            ),
+          ],
+          gradient: AppColors.whiteGradient,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            children: <Widget>[
+              EntityImage(url: widget.imageUrl),
+              Padding(
+                // Player name and team
+                padding: const EdgeInsets.only(left: 10),
+                child: Text(
+                  widget.text.length < maxLength
+                      ? widget.text
+                      : widget.text.substring(
+                            0,
+                            min(widget.text.length, maxLength),
+                          ) +
+                          "...",
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                const Expanded(child: SizedBox()),
-                Align(
-                  // favorite icon
-                  alignment: Alignment.centerLeft,
-                  child: IconButton(
-                    icon: const Icon(Icons.favorite_border),
-                    onPressed: () {},
-                  ),
-                )
-              ],
-            ),
+              ),
+              const Expanded(child: SizedBox()),
+              Align(
+                // favorite icon
+                alignment: Alignment.centerLeft,
+                child: IconButton(
+                  icon: const Icon(Icons.favorite_border),
+                  onPressed: () {},
+                ),
+              )
+            ],
           ),
         ),
       ),
