@@ -24,6 +24,7 @@ class Article extends StatelessWidget {
           ),
         )
       },
+      // TODO: Include source
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 10),
         child: Center(

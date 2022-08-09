@@ -13,6 +13,7 @@ class ScheduledMatch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: include event information
     return Container(
       alignment: Alignment.center,
       height: 106.25,
