@@ -60,22 +60,12 @@ class _PlayerListState extends State<PlayerList> {
                   shrinkWrap: true,
                   itemCount: loadedPlayers.length,
                   itemBuilder: ((context, index) {
-                    return GestureDetector(
-                      onTap: (() => {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      PlayerDetails(
-                                          player: loadedPlayers[index])),
-                            ),
-                          }),
-                      child: ListItem(
-                          imageUrl: loadedPlayers[index].imageUrl.toString(),
-                          text: loadedPlayers[index].name,
-                          pageToPush:
-                              PlayerDetails(player: loadedPlayers[index])),
+                    return ListItem(
+                      imageUrl: loadedPlayers[index].imageUrl.toString(),
+                      text: loadedPlayers[index].name,
+                      pageToPush: PlayerDetails(player: loadedPlayers[index]),
                     );
+                    // );
                   }),
                 ),
               ),
