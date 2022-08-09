@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:rlesports_app/models/match.dart';
 import 'package:rlesports_app/theme/colors.dart';
 import 'package:rlesports_app/widgets/best_of_set_markers.dart';
 
-class ActiveMatch extends StatelessWidget {
+class PastMatch extends StatelessWidget {
   final Match match;
 
-  const ActiveMatch({
+  const PastMatch({
     Key? key,
     required this.match,
   }) : super(key: key);
@@ -34,25 +35,18 @@ class ActiveMatch extends StatelessWidget {
         alignment: Alignment.center,
         child: Stack(
           children: <Widget>[
-            // TODO: figure out live scores somehow
+            // TODO: Not sure how I like this widget
+            // Think it would be good to have the scheduled date
+            // and the event
+
             // Align(
-            //   // Orange current game score
-            //   alignment: const Alignment(-0.4, -0.4),
+            //   // time text
+            //   alignment: const Alignment(0, 1.05),
             //   child: Text(
-            //     match.orangeTeamScore.toString(),
-            //     style: const TextStyle(fontSize: 31.88),
+            //     DateFormat().add_yMd().format(match.scheduledDateTime),
+            //     style: const TextStyle(fontSize: 15.94),
             //   ),
             // ),
-            Align(
-              // Game number
-              alignment: const Alignment(0, -1),
-              child: Text(
-                "Game " +
-                    (match.blueTeamSetScore! + match.orangeTeamSetScore! + 1)
-                        .toString(),
-                style: const TextStyle(fontSize: 21.25),
-              ),
-            ),
             const Align(
               // vs text
               alignment: Alignment(0, 0),
@@ -61,22 +55,6 @@ class ActiveMatch extends StatelessWidget {
                 style: TextStyle(fontSize: 15.94),
               ),
             ),
-            // Align(
-            //   // remaining match time
-            //   alignment: const Alignment(0, 1),
-            //   child: Text(
-            //     match.timeRemaining!,
-            //     style: const TextStyle(fontSize: 15.94),
-            //   ),
-            // ),
-            // Align(
-            //   // Blue team current score
-            //   alignment: const Alignment(0.4, -0.4),
-            //   child: Text(
-            //     match.blueTeamScore.toString(),
-            //     style: const TextStyle(fontSize: 31.88),
-            //   ),
-            // ),
             Align(
               // Orange Team Image
               alignment: const Alignment(-0.9, -1.5),

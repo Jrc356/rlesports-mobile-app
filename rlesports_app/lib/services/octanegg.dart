@@ -26,8 +26,6 @@ Future<http.Response> request({
     url += customParams;
   }
 
-  print(url);
-
   return http.get(Uri.parse(url));
 }
 
@@ -37,6 +35,8 @@ Future<List<Match>> getMatches({
   List<String>? tiers,
   DateTime? before,
   DateTime? after,
+  String? sortBy,
+  bool asc = true,
   int page = 1,
 }) async {
   List<Match> matches = [];
@@ -60,6 +60,10 @@ Future<List<Match>> getMatches({
     customTierParam += "tier=$tier&";
   }
 
+  if (sortBy != null) {
+    reqParams["sort"] = "$sortBy:${asc ? "asc" : "desc"}";
+  }
+
   // Get all matches for specified teirs
   http.Response res = await request(
     endpoint: "matches",
@@ -69,13 +73,13 @@ Future<List<Match>> getMatches({
   if (res.statusCode == 200) {
     final data = jsonDecode(res.body);
     if (data["matches"].length > 0) {
-      for (var match in data["matches"]) {
+      for (var matchData in data["matches"]) {
         Team orangeTeam = Team(name: "TBD", imageUrl: defaultImage);
         Team blueTeam = Team(name: "TBD", imageUrl: defaultImage);
 
         // Get orange team
-        if (match.containsKey("orange")) {
-          var odat = match["orange"]["team"]["team"];
+        if (matchData.containsKey("orange")) {
+          var odat = matchData["orange"]["team"]["team"];
           orangeTeam = Team(
             name: odat["name"],
             imageUrl: odat["image"] ?? defaultImage,
@@ -84,8 +88,8 @@ Future<List<Match>> getMatches({
         }
 
         // Get blue team
-        if (match.containsKey("blue")) {
-          var bdat = match["blue"]["team"]["team"];
+        if (matchData.containsKey("blue")) {
+          var bdat = matchData["blue"]["team"]["team"];
           blueTeam = Team(
             name: bdat["name"],
             imageUrl: bdat["image"] ?? defaultImage,
@@ -93,7 +97,22 @@ Future<List<Match>> getMatches({
           );
         }
 
-        DateTime date = DateTime.tryParse(match["date"]) ?? DateTime.now();
+        // Get scheduled date
+        DateTime date = DateTime.tryParse(matchData["date"]) ?? DateTime.now();
+
+        // Get set score
+        int? blueSetScore, orangeSetScore;
+        if (matchData.containsKey("games")) {
+          blueSetScore = 0;
+          orangeSetScore = 0;
+          for (var game in matchData["games"]) {
+            if (game["blue"] > game["orange"]) {
+              blueSetScore = blueSetScore! + 1;
+            } else {
+              orangeSetScore = orangeSetScore! + 1;
+            }
+          }
+        }
 
         // TODO: probably not good but skip the match if both teams are TBDß
         if (blueTeam.name == "TBD" && orangeTeam.name == "TBD") {
@@ -103,9 +122,11 @@ Future<List<Match>> getMatches({
         // Create match
         matches.add(
           Match(
-            bestOf: match["format"]["length"],
+            bestOf: matchData["format"]["length"],
             orangeTeam: orangeTeam,
+            orangeTeamSetScore: orangeSetScore,
             blueTeam: blueTeam,
+            blueTeamSetScore: blueSetScore,
             scheduledDateTime: date,
           ),
         );

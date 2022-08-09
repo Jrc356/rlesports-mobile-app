@@ -15,10 +15,9 @@ class ScheduledMatch extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      width: .85 * MediaQuery.of(context).size.width,
       height: 106.25,
       padding: const EdgeInsets.symmetric(vertical: 10),
-      margin: const EdgeInsets.symmetric(vertical: 5),
+      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(15)),
           boxShadow: [
