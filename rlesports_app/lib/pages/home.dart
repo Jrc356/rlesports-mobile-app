@@ -45,6 +45,7 @@ class HomePage extends StatelessWidget {
       child: ListView(
         children: <Widget>[
           // Active Matches
+          // TODO: Split by event
           FutureBuilder(
             future: getActiveMatches(),
             builder: (BuildContext context, AsyncSnapshot<List<Match>> snap) {
@@ -90,6 +91,7 @@ class HomePage extends StatelessWidget {
                           return ActiveMatch(match: snap.data![index - 2]);
                         }
                       },
+                      growable: false,
                     ),
                   ),
                 );
@@ -98,6 +100,8 @@ class HomePage extends StatelessWidget {
           ),
 
           // Scheduled Matches
+          // TODO: Split by event
+          // TODO: Split by day
           FutureBuilder(
             future: getScheduledMatches(),
             builder: (BuildContext context, AsyncSnapshot<List<Match>> snap) {
@@ -106,24 +110,26 @@ class HomePage extends StatelessWidget {
               } else {
                 return FrostedPane(
                   child: Column(
-                    children: List.generate(snap.data!.length + 1, (index) {
-                      if (index == 0) {
-                        return Container(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: const Text("Scheduled Matches"));
-                      }
-                      return ScheduledMatch(match: snap.data![index - 1]);
-                    }),
+                    children: List.generate(
+                      snap.data!.length + 1,
+                      (index) {
+                        if (index == 0) {
+                          return Container(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: const Text("Scheduled Matches"));
+                        }
+                        return ScheduledMatch(match: snap.data![index - 1]);
+                      },
+                      growable: false,
+                    ),
                   ),
                 );
               }
             },
           ),
           // Past Matches
-          // TODO: Create a new widget for past matches
-          // TODO: that widget should show end score and when it was
-          // TODO: should also probably include what event
-          // TODO: Need to clarify who played as well since the images are not obvious
+          // TODO: Split by event
+          // TODO: Split by day
           FutureBuilder(
             future: getPastMatches(),
             builder: (BuildContext context, AsyncSnapshot<List<Match>> snap) {
@@ -132,14 +138,18 @@ class HomePage extends StatelessWidget {
               } else {
                 return FrostedPane(
                   child: Column(
-                    children: List.generate(snap.data!.length + 1, (index) {
-                      if (index == 0) {
-                        return Container(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: const Text("Past Matches"));
-                      }
-                      return PastMatch(match: snap.data![index - 1]);
-                    }),
+                    children: List.generate(
+                      snap.data!.length + 1,
+                      (index) {
+                        if (index == 0) {
+                          return Container(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: const Text("Past Matches"));
+                        }
+                        return PastMatch(match: snap.data![index - 1]);
+                      },
+                      growable: false,
+                    ),
                   ),
                 );
               }
@@ -149,22 +159,4 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-  // child:
-  //     FrostedPane(
-  //       child: Column(
-  //         children: List.generate(scheduledMatches.length + 1, (index) {
-  //           if (index == 0) {
-  //             return Container(
-  //                 padding: const EdgeInsets.symmetric(vertical: 5),
-  //                 child: const Text("Scheduled Matches"));
-  //           }
-  //           return ScheduledMatch(match: scheduledMatches[index - 1]);
-  //         }),
-  //       ),
-  // ),
-  // ],
-  // ),
-  // ),
-  // );
-  // }
 }
