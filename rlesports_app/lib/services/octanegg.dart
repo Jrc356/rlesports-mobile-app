@@ -100,6 +100,13 @@ Future<List<Match>> getMatches({
         // Get scheduled date
         DateTime date = DateTime.tryParse(matchData["date"]) ?? DateTime.now();
 
+        // Get event data
+        String? eventName;
+        if (matchData.containsKey("event") &&
+            matchData["event"].containsKey("name")) {
+          eventName = matchData["event"]["name"];
+        }
+
         // Get set score
         int? blueSetScore, orangeSetScore;
         if (matchData.containsKey("games")) {
@@ -128,6 +135,7 @@ Future<List<Match>> getMatches({
             blueTeam: blueTeam,
             blueTeamSetScore: blueSetScore,
             scheduledDateTime: date,
+            eventName: eventName,
           ),
         );
       }
