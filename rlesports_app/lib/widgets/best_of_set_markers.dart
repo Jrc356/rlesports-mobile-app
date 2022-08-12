@@ -6,12 +6,14 @@ class BestOfSetMarkers extends StatelessWidget {
   final int bestOf;
   final int hasWon;
   final bool reverse;
+  final MainAxisAlignment alignment;
   const BestOfSetMarkers({
     Key? key,
     required this.color,
     required this.hasWon,
     this.bestOf = 5,
     this.reverse = false,
+    this.alignment = MainAxisAlignment.center,
   }) : super(key: key);
 
   Container makeMarker(bool enabled) {
@@ -41,7 +43,7 @@ class BestOfSetMarkers extends StatelessWidget {
     }
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: alignment,
       children: markers,
     );
   }
