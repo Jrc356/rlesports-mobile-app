@@ -60,7 +60,7 @@ class ScheduledMatch extends StatelessWidget {
             ),
             Align(
               // Orange Team Image
-              alignment: const Alignment(-0.3, 0),
+              alignment: const Alignment(-0.2, 0),
               child: Image.network(
                 match.orangeTeam.imageUrl,
                 width: 70,
@@ -69,7 +69,7 @@ class ScheduledMatch extends StatelessWidget {
             ),
             Align(
               // Blue Team Image
-              alignment: const Alignment(0.8, 0),
+              alignment: const Alignment(0.7, 0),
               child: Image.network(
                 match.blueTeam.imageUrl,
                 width: 70,
