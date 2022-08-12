@@ -28,7 +28,6 @@ class HomePage extends StatelessWidget {
 
   // Get past matches
   Future<List<Match>> getPastMatches() async {
-    // Scheduled matches should not include active matches
     DateTime end = DateTime.now().toUtc();
     DateTime start = DateTime.now().toUtc().subtract(const Duration(days: 7));
     return await octanegg.getMatches(
@@ -39,123 +38,121 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  Future<Map<String, List<Match>>> getAllMatches() async {
+    return {
+      "active": await getActiveMatches(),
+      "scheduled": await getScheduledMatches(),
+      "past": await getPastMatches(),
+    };
+  }
+
+  Widget buildActiveMatches(List<Match> matches) {
+    return FrostedPane(
+      child: Column(
+        children: List.generate(
+          matches.length + 2,
+          (index) {
+            if (index == 0) {
+              return Container(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: const Text("Active Matches"));
+            }
+
+            if (matches.isEmpty) {
+              return Container(
+                  alignment: Alignment.center,
+                  height: 106.25,
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.5), //color of shadow
+                        spreadRadius: 2, //spread radius
+                        blurRadius: 7, // blur radius
+                        offset:
+                            const Offset(1, 3), // changes position of shadow
+                      ),
+                    ],
+                    gradient: AppColors.whiteGradient,
+                  ),
+                  child: const Text("No Active Matches"));
+            } else {
+              return ActiveMatch(match: matches[index - 2]);
+            }
+          },
+          growable: false,
+        ),
+      ),
+    );
+  }
+
+  Widget buildScheduledMatches(List<Match> matches) {
+    // TODO: Split by event
+    // TODO: Split by day
+    return FrostedPane(
+      child: Column(
+        children: List.generate(
+          matches.length + 1,
+          (index) {
+            if (index == 0) {
+              return Container(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: const Text("Scheduled Matches"));
+            }
+            return ScheduledMatch(match: matches[index - 1]);
+          },
+          growable: false,
+        ),
+      ),
+    );
+  }
+
+  Widget buildPastMatches(List<Match> matches) {
+    // TODO: Split by event
+    // TODO: Split by day
+    return FrostedPane(
+      child: Column(
+        children: List.generate(
+          matches.length + 1,
+          (index) {
+            if (index == 0) {
+              return Container(
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                child: const Text("Past Matches"),
+              );
+            }
+            return PastMatch(match: matches[index - 1]);
+          },
+          growable: false,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Background(
-      child: ListView(
-        children: <Widget>[
-          // Active Matches
-          // TODO: Split by event
-          FutureBuilder(
-            future: getActiveMatches(),
-            builder: (BuildContext context, AsyncSnapshot<List<Match>> snap) {
-              // TODO: I don't like this, too many loading things
-              if (snap.data == null) {
-                return const Center(child: CircularProgressIndicator());
-              } else {
-                return FrostedPane(
-                  child: Column(
-                    children: List.generate(
-                      snap.data!.length + 2,
-                      (index) {
-                        if (index == 0) {
-                          return Container(
-                              padding: const EdgeInsets.symmetric(vertical: 5),
-                              child: const Text("Active Matches"));
-                        }
-
-                        if (snap.data!.isEmpty) {
-                          return Container(
-                              alignment: Alignment.center,
-                              height: 106.25,
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              margin: const EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 20),
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(15)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black
-                                        .withOpacity(0.5), //color of shadow
-                                    spreadRadius: 2, //spread radius
-                                    blurRadius: 7, // blur radius
-                                    offset: const Offset(
-                                        1, 3), // changes position of shadow
-                                  ),
-                                ],
-                                gradient: AppColors.whiteGradient,
-                              ),
-                              child: const Text("No Active Matches"));
-                        } else {
-                          return ActiveMatch(match: snap.data![index - 2]);
-                        }
-                      },
-                      growable: false,
-                    ),
-                  ),
-                );
-              }
-            },
-          ),
-
-          // Scheduled Matches
-          // TODO: Split by event
-          // TODO: Split by day
-          FutureBuilder(
-            future: getScheduledMatches(),
-            builder: (BuildContext context, AsyncSnapshot<List<Match>> snap) {
-              if (snap.data == null) {
-                return const Center(child: CircularProgressIndicator());
-              } else {
-                return FrostedPane(
-                  child: Column(
-                    children: List.generate(
-                      snap.data!.length + 1,
-                      (index) {
-                        if (index == 0) {
-                          return Container(
-                              padding: const EdgeInsets.symmetric(vertical: 5),
-                              child: const Text("Scheduled Matches"));
-                        }
-                        return ScheduledMatch(match: snap.data![index - 1]);
-                      },
-                      growable: false,
-                    ),
-                  ),
-                );
-              }
-            },
-          ),
-          // Past Matches
-          // TODO: Split by event
-          // TODO: Split by day
-          FutureBuilder(
-            future: getPastMatches(),
-            builder: (BuildContext context, AsyncSnapshot<List<Match>> snap) {
-              if (snap.data == null) {
-                return const Center(child: CircularProgressIndicator());
-              } else {
-                return FrostedPane(
-                  child: Column(
-                    children: List.generate(
-                      snap.data!.length + 1,
-                      (index) {
-                        if (index == 0) {
-                          return Container(
-                              padding: const EdgeInsets.symmetric(vertical: 5),
-                              child: const Text("Past Matches"));
-                        }
-                        return PastMatch(match: snap.data![index - 1]);
-                      },
-                      growable: false,
-                    ),
-                  ),
-                );
-              }
-            },
-          )
-        ],
+      child: FutureBuilder(
+        future: getAllMatches(),
+        builder: (
+          BuildContext context,
+          AsyncSnapshot<Map<String, List<Match>>> snap,
+        ) {
+          if (snap.data == null) {
+            return const Center(child: CircularProgressIndicator());
+          } else {
+            return ListView(
+              children: <Widget>[
+                buildActiveMatches(snap.data!["active"]!),
+                buildScheduledMatches(snap.data!["scheduled"]!),
+                buildPastMatches(snap.data!["past"]!),
+              ],
+            );
+          }
+        },
       ),
     );
   }
