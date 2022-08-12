@@ -17,7 +17,7 @@ class PastMatch extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       height: 106.25,
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(15)),
@@ -39,62 +39,76 @@ class PastMatch extends StatelessWidget {
             // Think it would be good to have the scheduled date
             // and the event
 
-            // Align(
-            //   // time text
-            //   alignment: const Alignment(0, 1.05),
-            //   child: Text(
-            //     DateFormat().add_yMd().format(match.scheduledDateTime),
-            //     style: const TextStyle(fontSize: 15.94),
-            //   ),
-            // ),
+            // event name text
+            Align(
+              alignment: const Alignment(-1, 0),
+              child: SizedBox(
+                width: 90,
+                child: Text(
+                  match.eventName.toString(),
+                  style: const TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  maxLines: 5,
+                ),
+              ),
+            ),
+
+            // vs text
             const Align(
-              // vs text
-              alignment: Alignment(0, 0),
+              alignment: Alignment(0.25, 0),
               child: Text(
                 "vs.",
                 style: TextStyle(fontSize: 15.94),
               ),
             ),
+
+            //*** Orange Team
+            // Image
             Align(
-              // Orange Team Image
-              alignment: const Alignment(-0.9, -1.5),
+              alignment: const Alignment(-0.2, -1),
               child: Image.network(
                 match.orangeTeam.imageUrl,
-                width: 70,
-                height: 70,
+                width: 60,
+                height: 60,
               ),
             ),
+            // Set markers
+            Padding(
+              padding: const EdgeInsets.only(right: 135),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: BestOfSetMarkers(
+                  color: AppColors.rlOrange,
+                  hasWon: match.orangeTeamSetScore!,
+                  bestOf: match.bestOf,
+                  reverse: true,
+                  alignment: MainAxisAlignment.end,
+                ),
+              ),
+            ),
+
+            //*** Blue Team
+            // Image
             Align(
-              // Blue Team Image
-              alignment: const Alignment(0.9, -1.5),
+              alignment: const Alignment(0.8, -1),
               child: Image.network(
                 match.blueTeam.imageUrl,
-                width: 70,
-                height: 70,
+                width: 60,
+                height: 60,
               ),
             ),
-            Align(
-              // Set Markers
-              alignment: const Alignment(1, 1),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  children: <Widget>[
-                    BestOfSetMarkers(
-                      // Orange team set markers
-                      color: AppColors.rlOrange,
-                      hasWon: match.orangeTeamSetScore!,
-                      bestOf: match.bestOf,
-                      reverse: true,
-                    ),
-                    const Expanded(child: SizedBox()),
-                    BestOfSetMarkers(
-                      // Blue team set markers
-                      color: AppColors.rlBlue,
-                      hasWon: match.blueTeamSetScore!,
-                      bestOf: match.bestOf,
-                    ),
-                  ],
+            // Set markers
+            Padding(
+              padding: const EdgeInsets.only(right: 5),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: BestOfSetMarkers(
+                  color: AppColors.rlBlue,
+                  hasWon: match.blueTeamSetScore!,
+                  bestOf: match.bestOf,
+                  alignment: MainAxisAlignment.end,
                 ),
               ),
             ),
