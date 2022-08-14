@@ -21,7 +21,7 @@ class ScheduledMatch extends StatelessWidget {
             // date text
             alignment: const Alignment(-1, -0.5),
             child: Text(
-              DateFormat().add_yMd().format(match.scheduledDateTime),
+              DateFormat().add_yMd().format(match.scheduledDateTime.toLocal()),
               style: const TextStyle(fontSize: 16),
             ),
           ),
@@ -29,7 +29,7 @@ class ScheduledMatch extends StatelessWidget {
             // time text
             alignment: const Alignment(-1, 0.5),
             child: Text(
-              DateFormat().add_jm().format(match.scheduledDateTime),
+              DateFormat().add_jm().format(match.scheduledDateTime.toLocal()),
               style: const TextStyle(fontSize: 16),
             ),
           ),
