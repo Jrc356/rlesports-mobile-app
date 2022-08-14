@@ -110,7 +110,8 @@ Future<List<Match>> getMatches({
         }
 
         // Get set score
-        int blueSetScore = 0, orangeSetScore = 0;
+        int blueSetScore = 0;
+        int orangeSetScore = 0;
         if (matchData.containsKey("games")) {
           for (var game in matchData["games"]) {
             if (game["blue"] > game["orange"]) {
@@ -129,6 +130,7 @@ Future<List<Match>> getMatches({
         // Create match
         matches.add(
           Match(
+            octaneId: matchData["_id"],
             bestOf: matchData["format"]["length"],
             orangeTeam: orangeTeam,
             orangeTeamSetScore: orangeSetScore,

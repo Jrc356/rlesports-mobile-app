@@ -2,6 +2,7 @@ import 'package:rlesports_app/models/game.dart';
 import 'package:rlesports_app/models/team.dart';
 
 class Match {
+  final String? octaneId;
   final int bestOf;
   final int orangeTeamScore,
       orangeTeamSetScore,
@@ -14,6 +15,7 @@ class Match {
   final List<Game> games;
 
   Match({
+    this.octaneId,
     required this.bestOf,
     required this.orangeTeam,
     required this.blueTeam,

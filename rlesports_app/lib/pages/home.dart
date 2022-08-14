@@ -10,10 +10,10 @@ import 'package:rlesports_app/services/octanegg.dart' as octanegg;
 
 // Get active matches
 Future<List<Match>> getActiveMatches() async {
+  // Not sure how accurate this is
   DateTime now = DateTime.now();
-  DateTime after = DateTime(now.year, now.month, now.day, now.hour).toUtc();
-  DateTime before =
-      DateTime(now.year, now.month, now.day, now.hour, now.minute + 1).toUtc();
+  DateTime before = DateTime(now.year, now.month, now.day, now.hour).toUtc();
+  DateTime after = DateTime(now.year, now.month, now.day, now.hour - 1).toUtc();
   return octanegg.getMatches(before: before, after: after);
 }
 
@@ -220,7 +220,6 @@ class _HomePageState extends State<HomePage> {
             setState(
               () {
                 _allMatches = getAllMatches();
-                print("refreshed");
               },
             );
           });
