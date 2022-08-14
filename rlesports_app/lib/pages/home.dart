@@ -15,21 +15,24 @@ class HomePage extends StatelessWidget {
 
   // Get active matches
   Future<List<Match>> getActiveMatches() async {
-    DateTime end = DateTime.now().add(const Duration(minutes: 30)).toUtc();
-    DateTime start = DateTime.now().toUtc();
-    return octanegg.getMatches(before: end, after: start);
+    DateTime now = DateTime.now();
+    DateTime end = DateTime(now.year, now.month, now.day, now.hour).toUtc();
+    return octanegg.getMatches(before: end, after: end);
   }
 
   // Get scheduled matches
   Future<List<Match>> getScheduledMatches() async {
     // Scheduled matches should not include active matches
-    DateTime start = DateTime.now().toUtc().add(const Duration(minutes: 30));
+    DateTime now = DateTime.now();
+    DateTime start =
+        DateTime(now.year, now.month, now.day, now.hour + 1).toUtc();
     return await octanegg.getMatches(after: start);
   }
 
   // Get past matches
   Future<List<Match>> getPastMatches() async {
-    DateTime end = DateTime.now().toUtc();
+    DateTime now = DateTime.now();
+    DateTime end = DateTime(now.year, now.month, now.day, now.hour - 1).toUtc();
     DateTime start = DateTime.now().toUtc().subtract(const Duration(days: 7));
     return await octanegg.getMatches(
       before: end,
@@ -51,7 +54,7 @@ class HomePage extends StatelessWidget {
     return FrostedPane(
       child: Column(
         children: List.generate(
-          matches.length + 2,
+          matches.length + 1,
           (index) {
             if (index == 0) {
               return Container(
@@ -65,7 +68,7 @@ class HomePage extends StatelessWidget {
                 child: Text("No Active Matches"),
               );
             } else {
-              return ActiveMatch(match: matches[index - 2]);
+              return ActiveMatch(match: matches[index - 1]);
             }
           },
           growable: false,
