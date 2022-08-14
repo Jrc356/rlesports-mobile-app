@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:rlesports_app/theme/colors.dart';
 import 'package:rlesports_app/widgets/clickable_item.dart';
 import 'package:rlesports_app/widgets/entity_image.dart';
 

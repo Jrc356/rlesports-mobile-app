@@ -110,15 +110,13 @@ Future<List<Match>> getMatches({
         }
 
         // Get set score
-        int? blueSetScore, orangeSetScore;
+        int blueSetScore = 0, orangeSetScore = 0;
         if (matchData.containsKey("games")) {
-          blueSetScore = 0;
-          orangeSetScore = 0;
           for (var game in matchData["games"]) {
             if (game["blue"] > game["orange"]) {
-              blueSetScore = blueSetScore! + 1;
+              blueSetScore = blueSetScore + 1;
             } else {
-              orangeSetScore = orangeSetScore! + 1;
+              orangeSetScore = orangeSetScore + 1;
             }
           }
         }

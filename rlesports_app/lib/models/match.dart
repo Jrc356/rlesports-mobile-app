@@ -3,7 +3,7 @@ import 'package:rlesports_app/models/team.dart';
 
 class Match {
   final int bestOf;
-  final int? orangeTeamScore,
+  final int orangeTeamScore,
       orangeTeamSetScore,
       blueTeamScore,
       blueTeamSetScore;
@@ -19,13 +19,13 @@ class Match {
     required this.blueTeam,
     required this.scheduledDateTime,
     this.timeRemaining,
-    this.orangeTeamScore,
-    this.orangeTeamSetScore,
-    this.blueTeamScore,
-    this.blueTeamSetScore,
     this.tier,
     this.eventName,
     this.eventStage,
+    this.orangeTeamScore = 0,
+    this.orangeTeamSetScore = 0,
+    this.blueTeamScore = 0,
+    this.blueTeamSetScore = 0,
     this.games = const [],
   });
 }

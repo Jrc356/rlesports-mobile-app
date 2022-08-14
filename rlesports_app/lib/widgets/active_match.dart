@@ -19,24 +19,11 @@ class ActiveMatch extends StatelessWidget {
         alignment: Alignment.center,
         child: Stack(
           children: <Widget>[
-            // TODO: figure out live scores somehow
-            // Align(
-            //   // Orange current game score
-            //   alignment: const Alignment(-0.4, -0.4),
-            //   child: Text(
-            //     match.orangeTeamScore.toString(),
-            //     style: const TextStyle(fontSize: 31.88),
-            //   ),
-            // ),
             Align(
               // Game number
               alignment: const Alignment(0, -1),
               child: Text(
-                "Game " +
-                    ((match.blueTeamSetScore ?? 0) +
-                            (match.orangeTeamSetScore ?? 0) +
-                            1)
-                        .toString(),
+                "Game ${(match.blueTeamSetScore + match.orangeTeamSetScore + 1).toString()}",
                 style: const TextStyle(fontSize: 21.25),
               ),
             ),
@@ -72,7 +59,7 @@ class ActiveMatch extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: BestOfSetMarkers(
                   color: AppColors.rlBlue,
-                  hasWon: match.blueTeamSetScore ?? 0,
+                  hasWon: match.blueTeamSetScore,
                   bestOf: match.bestOf,
                   alignment: MainAxisAlignment.end,
                 ),
@@ -82,7 +69,7 @@ class ActiveMatch extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: BestOfSetMarkers(
                 color: AppColors.rlOrange,
-                hasWon: match.orangeTeamSetScore ?? 0,
+                hasWon: match.orangeTeamSetScore,
                 bestOf: match.bestOf,
                 reverse: true,
                 alignment: MainAxisAlignment.start,

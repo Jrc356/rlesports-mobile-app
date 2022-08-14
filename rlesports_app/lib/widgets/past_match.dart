@@ -60,7 +60,7 @@ class PastMatch extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: BestOfSetMarkers(
                 color: AppColors.rlOrange,
-                hasWon: match.orangeTeamSetScore!,
+                hasWon: match.orangeTeamSetScore,
                 bestOf: match.bestOf,
                 reverse: true,
                 alignment: MainAxisAlignment.end,
@@ -85,7 +85,7 @@ class PastMatch extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: BestOfSetMarkers(
                 color: AppColors.rlBlue,
-                hasWon: match.blueTeamSetScore!,
+                hasWon: match.blueTeamSetScore,
                 bestOf: match.bestOf,
                 alignment: MainAxisAlignment.end,
               ),
