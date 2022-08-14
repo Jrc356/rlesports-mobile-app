@@ -101,10 +101,12 @@ Future<List<Match>> getMatches({
         DateTime date = DateTime.tryParse(matchData["date"]) ?? DateTime.now();
 
         // Get event data
-        String? eventName;
-        if (matchData.containsKey("event") &&
-            matchData["event"].containsKey("name")) {
+        String? eventName, eventStage;
+        if (matchData.containsKey("event")) {
           eventName = matchData["event"]["name"];
+        }
+        if (matchData.containsKey("stage")) {
+          eventStage = matchData["stage"]["name"];
         }
 
         // Get set score
@@ -121,7 +123,7 @@ Future<List<Match>> getMatches({
           }
         }
 
-        // TODO: probably not good but skip the match if both teams are TBDß
+        // TODO: probably not good but skip the match if both teams are TBD
         if (blueTeam.name == "TBD" && orangeTeam.name == "TBD") {
           continue;
         }
@@ -136,6 +138,7 @@ Future<List<Match>> getMatches({
             blueTeamSetScore: blueSetScore,
             scheduledDateTime: date,
             eventName: eventName,
+            eventStage: eventStage,
           ),
         );
       }
