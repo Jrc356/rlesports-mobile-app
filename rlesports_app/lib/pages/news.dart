@@ -20,25 +20,30 @@ class NewsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Future<List<NewsArticle>> articles = getAllArticles();
     return Background(
-      child: FutureBuilder(
-        future: articles,
-        builder: (BuildContext context, AsyncSnapshot<List<NewsArticle>> snap) {
-          if (snap.data == null) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          return ListView.builder(
-            itemCount: snap.data!.length,
-            itemBuilder: (context, index) {
-              return FrostedPane(
-                bottomPadding: 25,
-                child: Article(
-                  newsArticle: snap.data![index],
-                ),
+      child: FrostedPane(
+          bottomPadding: 25,
+          child: FutureBuilder(
+            future: articles,
+            builder:
+                (BuildContext context, AsyncSnapshot<List<NewsArticle>> snap) {
+              if (snap.data == null) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              return ListView.builder(
+                itemCount: snap.data!.length + 1,
+                itemBuilder: (context, index) {
+                  if (index == 0) {
+                    return Container(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: const Center(child: Text("News")));
+                  }
+                  return Article(
+                    newsArticle: snap.data![index - 1],
+                  );
+                },
               );
             },
-          );
-        },
-      ),
+          )),
     );
   }
 }
