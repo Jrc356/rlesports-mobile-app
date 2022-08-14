@@ -21,7 +21,7 @@ class PastMatch extends StatelessWidget {
           Align(
             alignment: const Alignment(-1, 0),
             child: SizedBox(
-              width: 90,
+              width: 50,
               child: Text(
                 match.eventStage.toString(),
                 style: const TextStyle(
@@ -35,17 +35,18 @@ class PastMatch extends StatelessWidget {
 
           // vs text
           const Align(
-            alignment: Alignment(0.25, 0),
+            alignment: Alignment(0.17, 0),
             child: Text(
               "vs.",
-              style: TextStyle(fontSize: 15.94),
+              style: TextStyle(fontSize: 16),
+              textAlign: TextAlign.center,
             ),
           ),
 
           //*** Orange Team
           // Image
           Align(
-            alignment: const Alignment(-0.2, -1),
+            alignment: const Alignment(-0.4, -1),
             child: Image.network(
               match.orangeTeam.imageUrl,
               width: 60,
@@ -54,7 +55,7 @@ class PastMatch extends StatelessWidget {
           ),
           // Set markers
           Padding(
-            padding: const EdgeInsets.only(right: 135),
+            padding: EdgeInsets.only(right: match.bestOf == 7 ? 160 : 172.25),
             child: Align(
               alignment: Alignment.bottomCenter,
               child: BestOfSetMarkers(
@@ -70,7 +71,7 @@ class PastMatch extends StatelessWidget {
           //*** Blue Team
           // Image
           Align(
-            alignment: const Alignment(0.8, -1),
+            alignment: const Alignment(0.785, -1),
             child: Image.network(
               match.blueTeam.imageUrl,
               width: 60,
@@ -79,7 +80,7 @@ class PastMatch extends StatelessWidget {
           ),
           // Set markers
           Padding(
-            padding: const EdgeInsets.only(right: 5),
+            padding: EdgeInsets.only(right: match.bestOf == 7 ? 5 : 17.5),
             child: Align(
               alignment: Alignment.bottomCenter,
               child: BestOfSetMarkers(

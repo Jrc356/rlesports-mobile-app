@@ -48,7 +48,7 @@ class ActiveMatch extends StatelessWidget {
             ),
             Align(
               // Orange Team Image
-              alignment: const Alignment(-1, -1.5),
+              alignment: const Alignment(-0.83, -1.5),
               child: Image.network(
                 match.orangeTeam.imageUrl,
                 width: 70,
@@ -57,7 +57,7 @@ class ActiveMatch extends StatelessWidget {
             ),
             Align(
               // Blue Team Image
-              alignment: const Alignment(1, -1.5),
+              alignment: const Alignment(0.83, -1.5),
               child: Image.network(
                 match.blueTeam.imageUrl,
                 width: 70,

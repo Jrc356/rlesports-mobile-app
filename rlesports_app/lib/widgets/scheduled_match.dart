@@ -44,7 +44,7 @@ class ScheduledMatch extends StatelessWidget {
           ),
           const Align(
             // vs text
-            alignment: Alignment(0.45, 0),
+            alignment: Alignment(0.425, 0),
             child: Text(
               "vs.",
               textAlign: TextAlign.center,
