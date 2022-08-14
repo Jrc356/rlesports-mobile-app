@@ -46,25 +46,9 @@ class ActiveMatch extends StatelessWidget {
                 style: TextStyle(fontSize: 15.94),
               ),
             ),
-            // Align(
-            //   // remaining match time
-            //   alignment: const Alignment(0, 1),
-            //   child: Text(
-            //     match.timeRemaining!,
-            //     style: const TextStyle(fontSize: 15.94),
-            //   ),
-            // ),
-            // Align(
-            //   // Blue team current score
-            //   alignment: const Alignment(0.4, -0.4),
-            //   child: Text(
-            //     match.blueTeamScore.toString(),
-            //     style: const TextStyle(fontSize: 31.88),
-            //   ),
-            // ),
             Align(
               // Orange Team Image
-              alignment: const Alignment(-0.9, -1.5),
+              alignment: const Alignment(-1, -1.5),
               child: Image.network(
                 match.orangeTeam.imageUrl,
                 width: 70,
@@ -73,36 +57,33 @@ class ActiveMatch extends StatelessWidget {
             ),
             Align(
               // Blue Team Image
-              alignment: const Alignment(0.9, -1.5),
+              alignment: const Alignment(1, -1.5),
               child: Image.network(
                 match.blueTeam.imageUrl,
                 width: 70,
                 height: 70,
               ),
             ),
-            Align(
-              // Set Markers
-              alignment: const Alignment(1, 1),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  children: <Widget>[
-                    BestOfSetMarkers(
-                      // Orange team set markers
-                      color: AppColors.rlOrange,
-                      hasWon: match.orangeTeamSetScore!,
-                      bestOf: match.bestOf,
-                      reverse: true,
-                    ),
-                    const Expanded(child: SizedBox()),
-                    BestOfSetMarkers(
-                      // Blue team set markers
-                      color: AppColors.rlBlue,
-                      hasWon: match.blueTeamSetScore!,
-                      bestOf: match.bestOf,
-                    ),
-                  ],
+            Padding(
+              padding: const EdgeInsets.only(right: 5),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: BestOfSetMarkers(
+                  color: AppColors.rlBlue,
+                  hasWon: match.blueTeamSetScore ?? 0,
+                  bestOf: match.bestOf,
+                  alignment: MainAxisAlignment.end,
                 ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: BestOfSetMarkers(
+                color: AppColors.rlOrange,
+                hasWon: match.orangeTeamSetScore ?? 0,
+                bestOf: match.bestOf,
+                reverse: true,
+                alignment: MainAxisAlignment.start,
               ),
             ),
           ],
