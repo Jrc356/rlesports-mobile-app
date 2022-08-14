@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rlesports_app/models/news_article.dart';
 import 'package:rlesports_app/widgets/app_bar.dart';
+import 'package:rlesports_app/widgets/clickable_item.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class Article extends StatelessWidget {
@@ -13,7 +14,7 @@ class Article extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return ClickableItem(
       onTap: () => {
         Navigator.push(
           context,
@@ -24,33 +25,43 @@ class Article extends StatelessWidget {
           ),
         )
       },
-      // TODO: Include source
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10),
-        child: Center(
-          child: Column(
-            children: [
-              Image.network(
-                newsArticle.imageUrl,
-                height: 234,
-                width: 480,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 10,
-                ),
-                child: Text(
-                  newsArticle.title,
-                  textAlign: TextAlign.left,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
+      height: null,
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          Image.network(
+            newsArticle.imageUrl,
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 20,
+            ),
+            child: Text(
+              newsArticle.title,
+              textAlign: TextAlign.left,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 25,
+              ),
+              child: Text(
+                "source: ${newsArticle.source}",
+                textAlign: TextAlign.left,
+                style: const TextStyle(
+                  fontSize: 8,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
