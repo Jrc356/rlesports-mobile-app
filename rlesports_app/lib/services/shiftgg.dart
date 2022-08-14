@@ -26,6 +26,7 @@ Future<List<NewsArticle>> getArticles() async {
         imageUrl: imageUrl as String,
         title: title,
         articleUrl: articleUrl,
+        source: "https://www.shiftrle.gg",
       ));
     }
   }
