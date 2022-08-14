@@ -58,8 +58,14 @@ class HomePage extends StatelessWidget {
           (index) {
             if (index == 0) {
               return Container(
-                  padding: const EdgeInsets.symmetric(vertical: 5),
-                  child: const Text("Active Matches"));
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                  child: Column(
+                    children: const [
+                      Text("Active Matches"),
+                      Divider(color: Colors.black),
+                    ],
+                  ));
             }
 
             if (matches.isEmpty) {
@@ -87,8 +93,14 @@ class HomePage extends StatelessWidget {
           (index) {
             if (index == 0) {
               return Container(
-                  padding: const EdgeInsets.symmetric(vertical: 5),
-                  child: const Text("Scheduled Matches"));
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                  child: Column(
+                    children: const [
+                      Text("Scheduled Matches"),
+                      Divider(color: Colors.black),
+                    ],
+                  ));
             }
             return ScheduledMatch(match: matches[index - 1]);
           },
@@ -108,8 +120,14 @@ class HomePage extends StatelessWidget {
           (index) {
             if (index == 0) {
               return Container(
-                padding: const EdgeInsets.symmetric(vertical: 5),
-                child: const Text("Past Matches"),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                child: Column(
+                  children: const [
+                    Text("Past Matches"),
+                    Divider(color: Colors.black),
+                  ],
+                ),
               );
             }
             return PastMatch(match: matches[index - 1]);
