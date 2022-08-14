@@ -33,7 +33,9 @@ class ActiveMatch extends StatelessWidget {
               alignment: const Alignment(0, -1),
               child: Text(
                 "Game " +
-                    (match.blueTeamSetScore! + match.orangeTeamSetScore! + 1)
+                    ((match.blueTeamSetScore ?? 0) +
+                            (match.orangeTeamSetScore ?? 0) +
+                            1)
                         .toString(),
                 style: const TextStyle(fontSize: 21.25),
               ),
