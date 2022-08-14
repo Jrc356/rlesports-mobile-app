@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rlesports_app/models/match.dart';
 import 'package:rlesports_app/theme/colors.dart';
 import 'package:rlesports_app/widgets/best_of_set_markers.dart';
+import 'package:rlesports_app/widgets/clickable_item.dart';
 
 class ActiveMatch extends StatelessWidget {
   final Match match;
@@ -13,23 +14,7 @@ class ActiveMatch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      height: 106.25,
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(15)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.5), //color of shadow
-            spreadRadius: 2, //spread radius
-            blurRadius: 7, // blur radius
-            offset: const Offset(1, 3), // changes position of shadow
-          ),
-        ],
-        gradient: AppColors.whiteGradient,
-      ),
+    return ClickableItem(
       child: Align(
         alignment: Alignment.center,
         child: Stack(

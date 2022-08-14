@@ -3,6 +3,7 @@ import 'package:rlesports_app/models/match.dart';
 import 'package:rlesports_app/theme/colors.dart';
 import 'package:rlesports_app/widgets/active_match.dart';
 import 'package:rlesports_app/widgets/background.dart';
+import 'package:rlesports_app/widgets/clickable_item.dart';
 import 'package:rlesports_app/widgets/frosted_pane.dart';
 import 'package:rlesports_app/widgets/past_match.dart';
 import 'package:rlesports_app/widgets/scheduled_match.dart';
@@ -59,26 +60,10 @@ class HomePage extends StatelessWidget {
             }
 
             if (matches.isEmpty) {
-              return Container(
-                  alignment: Alignment.center,
-                  height: 106.25,
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(15)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.5), //color of shadow
-                        spreadRadius: 2, //spread radius
-                        blurRadius: 7, // blur radius
-                        offset:
-                            const Offset(1, 3), // changes position of shadow
-                      ),
-                    ],
-                    gradient: AppColors.whiteGradient,
-                  ),
-                  child: const Text("No Active Matches"));
+              return const ClickableItem(
+                isClickable: false,
+                child: Text("No Active Matches"),
+              );
             } else {
               return ActiveMatch(match: matches[index - 2]);
             }
