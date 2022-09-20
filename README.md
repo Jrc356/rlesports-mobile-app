@@ -14,6 +14,8 @@ tailor a news feed to be more relevant to me.
 # Status
 [![Generic badge](https://img.shields.io/badge/Status-On%20Hold-yellow.svg)](https://shields.io/)
 
+This project has lost my interest since the season ended. I might come back to this, might not 😅
+
 # Development
 ## Quick Start
 It is recommended to use the flutter vscode plugin to launch an emulator and run. Open the `rlesports_app` dir in vscode 
